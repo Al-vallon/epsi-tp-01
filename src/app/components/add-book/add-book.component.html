@@ -25,7 +25,7 @@
     </div>
   </div>
 
-  <!-- <div>
+  <div>
     <label for="category">Catégorie :</label>
     <select id="category" formControlName="category">
       <option value="" disabled>Sélectionner une catégorie</option>
@@ -34,9 +34,12 @@
     <div *ngIf="bookForm.controls['category'].invalid && bookForm.controls['category'].touched">
       <small>Veuillez sélectionner une catégorie.</small>
     </div>
-  </div> -->
+  </div>
+
+  <div class="form-errors" *ngIf="submissionError">
+    <p class="error-message">Erreur lors de l'enregistrement. Veuillez réessayer.</p>
+  </div>
 
   <button type="submit" [disabled]="bookForm.invalid">Ajouter</button>
 </form>
-
 </div>

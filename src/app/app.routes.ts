@@ -9,7 +9,7 @@ export const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'books', component: BookListComponent },
   { path: 'books/add', component: AddBookComponent },
-  { path: ' bookdetail/:id', component: BookDetailComponent },
+  { path: 'book/:id', component: BookDetailComponent },
 
   { path: '**', redirectTo: '' }
 ];

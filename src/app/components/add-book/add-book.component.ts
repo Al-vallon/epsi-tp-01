@@ -9,37 +9,51 @@ import { BookService } from '../../services/book.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: 'add-book.component.html',
+  styleUrls: ['./add-book.component.css']
 })
 export class AddBookComponent implements OnInit {
-  bookForm!: FormGroup;
-  
+  bookForm: FormGroup;
+  categories: string[] = ['Fiction', 'Non-fiction', 'Science_Fiction', 'Fantasy', 'Biography', 'History', 'Mystery', 'Romance'];
+  submissionError = false;
+
   constructor(
     private fb: FormBuilder,
     private bookService: BookService,
     private router: Router
-  ) {}
-  
-  ngOnInit(): void {
-    // TODO 6 : Créer un formulaire avec les champs suivants : title, author, description, category
-    // TODO 7 : Ajouter les validations 
-    
+  ) {
     this.bookForm = this.fb.group({
       title: ['', Validators.required],
       author: ['', Validators.required],
-      description: ['', Validators.required, Validators.minLength(10)],
+      description: ['', [Validators.required, Validators.minLength(10)]],
       category: ['', Validators.required]
     });
   }
-  
+
+  ngOnInit(): void {
+    // Initialisation supplémentaire si nécessaire
+  }
+
   onSubmit(): void {
+    this.submissionError = false;
+    
     if (this.bookForm.valid) {
+      console.log('Form values:', this.bookForm.value);
+      
       this.bookService.addBook(this.bookForm.value).subscribe({
         next: () => {
+          console.log('Book added successfully');
           this.router.navigate(['/books']);
         },
-        error: (err: any) => {
-          console.error('Erreur lors de l\'ajout du livre', err);
+        error: (error) => {
+          console.error('Error adding book:', error);
+          this.submissionError = true;
         }
+      });
+    } else {
+      // Marquer tous les champs comme touchés pour afficher les erreurs
+      Object.keys(this.bookForm.controls).forEach(key => {
+        const control = this.bookForm.get(key);
+        control?.markAsTouched();
       });
     }
   }
