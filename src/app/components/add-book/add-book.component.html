@@ -1,10 +1,42 @@
 <div class="form-container">
   <h1>Ajouter un livre</h1>
   <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
-    <input type="text" formControlName="title" placeholder="Titre du livre">
-    <input type="text" formControlName="author" placeholder="Nom de l'auteur">
-    <input type="text" formControlName="description" placeholder="Description du livre">
-    <input type="text" formControlName="category" placeholder="Catégorie du livre">
-    <button type="submit">Ajouter le livre</button>
-  </form>
+  <div>
+    <label for="title">Titre :</label>
+    <input id="title" type="text" formControlName="title">
+    <div *ngIf="bookForm.controls['title'].invalid && bookForm.controls['title'].touched">
+      <small>Le titre est obligatoire.</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="author">Auteur :</label>
+    <input id="author" type="text" formControlName="author">
+    <div *ngIf="bookForm.controls['author'].invalid && bookForm.controls['author'].touched">
+      <small>L'auteur est obligatoire.</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="description">Description :</label>
+    <textarea id="description" formControlName="description"></textarea>
+    <div *ngIf="bookForm.controls['description'].invalid && bookForm.controls['description'].touched">
+      <small>La description doit faire au moins 10 caractères.</small>
+    </div>
+  </div>
+
+  <!-- <div>
+    <label for="category">Catégorie :</label>
+    <select id="category" formControlName="category">
+      <option value="" disabled>Sélectionner une catégorie</option>
+      <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+    </select>
+    <div *ngIf="bookForm.controls['category'].invalid && bookForm.controls['category'].touched">
+      <small>Veuillez sélectionner une catégorie.</small>
+    </div>
+  </div> -->
+
+  <button type="submit" [disabled]="bookForm.invalid">Ajouter</button>
+</form>
+
 </div>

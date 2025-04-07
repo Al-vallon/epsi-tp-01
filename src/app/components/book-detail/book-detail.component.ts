@@ -3,15 +3,17 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BookService } from '../../services/book.service';
 import { Book } from '../../models/book.model';
+import { HighlightDirective } from '../../directives/highlight.directive';
 
 @Component({
   selector: 'app-book-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HighlightDirective ],
   templateUrl: 'book-detail.component.html',
 })
 export class BookDetailComponent implements OnInit {
   book!: Book;
+  isHighlighted: boolean = true;
   
   constructor(
     private route: ActivatedRoute,
@@ -47,5 +49,6 @@ export class BookDetailComponent implements OnInit {
 
   goBack(): void {
     // TODO 8 : Créer un bouton qui permet de revenir à la page précédente
+    this.router.navigate(['/books']);
   }
 }

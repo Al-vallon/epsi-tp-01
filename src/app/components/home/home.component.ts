@@ -8,5 +8,5 @@ import { CommonModule } from '@angular/common';
   templateUrl: 'home.component.html',
 })
 export class HomeComponent {
-  title = 'Bienvenue sur BiblioTech';
+  title = 'Bienvenue sur BiblioTech'.toUpperCase();
 }
